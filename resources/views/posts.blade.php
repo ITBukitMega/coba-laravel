@@ -2,14 +2,42 @@
 
 @section("container")
 <h3>{{$title}}</h3>
-@foreach ($Posts as $p )
-    <article class="mb-5 border-bottom pb-5">
-    <h2><a href="/blog/{{ $p->slug }}" class="text-decoration-none">{{$p->title}}</a></h2>
 
-    <p>By: <a href="/authors/{{$p->user->name}}" class="text-decoration-none"> {{ $p->user->name }} </a> in <a href="/categories/{{$p->category->slug}}" class="text-decoration-none">{{$p->category->name}}</a></p>
-    <p>{{$p->excerpt}}</p>
-    <a href="/blog/{{ $p->slug }}" class="text-decoration-none">Read More...</a>
-    </article>
+@if($Posts->count())
+<div class="card mb-3">
+  <img src="https://picsum.photos/1200/400?random&keywords=nature,water
+" class="card-img-top" alt="...">
+  <div class="card-body text-center">
+    <h3 class="card-title"><a href="/blog/{{ $Posts[0]->slug }}" class="text-decoration-none text-dark">{{$Posts[0]->title}}</a></h3>
+    <p>By: <small class="text-body-secondary text-muted"><a href="/authors/{{$Posts[0]->user->name}}" class="text-decoration-none">
+     {{ $Posts[0]->user->name }} </a> in <a href="/categories/{{$Posts[0]->category->slug}}" class="text-decoration-none">{{$Posts[0]->category->name}}</a> {{ $Posts[0]->created_at->diffForHumans() }} </small></p>
+    <p class="card-text">{{$Posts[0]->excerpt}}</p>
+    <a href="/blog/{{ $Posts[0]->slug }}" class="text-decoration-none btn btn-primary">Read More...</a>
+  </div>
+</div>
+@else
+<p class="text-center fs-4">No post found.</p>
 
-@endforeach
+@endif
+
+<div class="container">
+    <div class="row">
+        @foreach($Posts->skip(1) as $p)
+        <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="position-absolute px-3 py-2 " style="background-color : rgba(0,0,0,0.3)"><a href="/categories/{{$p->category->slug}}" class="text-white text-decoration-none">{{$p->category->name}}</a></div>
+  <img src="https://picsum.photos/500/400
+" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{$p->title}}</h5>
+    <p>By: <small class="text-body-secondary text-muted"><a href="/authors/{{$Posts[0]->user->name}}" class="text-decoration-none">
+     {{ $p->user->name }} </a>{{ $p->created_at->diffForHumans() }} </small></p>
+    <p class="card-text">{{$p->excerpt}}</p>
+    <a href="/blog/{{ $p->slug }}" class="btn btn-primary">Read more</a>
+  </div>
+</div>
+        </div>
+        @endforeach
+    </div>
+</div>
 @endsection

@@ -1,7 +1,7 @@
 @extends("layouts/main")
 
 @section("container")
-<h3>Halaman Blog Post</h3>
+<h3>{{$title}}</h3>
 @foreach ($Posts as $p )
     <article class="mb-5 border-bottom pb-5">
     <h2><a href="/blog/{{ $p->slug }}" class="text-decoration-none">{{$p->title}}</a></h2>

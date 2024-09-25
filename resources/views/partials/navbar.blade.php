@@ -13,7 +13,7 @@
           <a class="nav-link {{($title === "About" ? "active" : "")}}" href="/about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{($title === "All Post" ? "active" : "")}}" href="/blog">Blog</a>
+          <a class="nav-link {{($title === "All Post" || $title === "Single Post" || str_starts_with($title, 'Post by Author :') ? "active" : "")}}" href="/blog">Blog</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{($title === "Post Categories" ? "active" : "")}}" href="/categories">Categories</a>

@@ -1,7 +1,18 @@
 @extends("layouts/main")
 
 @section("container")
-<h3>{{$title}}</h3>
+<h3 class="text-center mb-3">{{$title}}</h3>
+
+<div class="row justify-content-center mb-3">
+  <div class="col-md-6">
+  <form action="/posts" method="GET">
+    <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search.." name="search" value="{{request("search")}}">
+  <button class="btn btn-danger" type="submit">Search</button>
+</div>
+    </form>
+  </div>
+</div>
 
 @if($Posts->count())
 <div class="card mb-3">
@@ -15,10 +26,6 @@
     <a href="/blog/{{ $Posts[0]->slug }}" class="text-decoration-none btn btn-primary">Read More...</a>
   </div>
 </div>
-@else
-<p class="text-center fs-4">No post found.</p>
-
-@endif
 
 <div class="container">
     <div class="row">
@@ -40,4 +47,9 @@
         @endforeach
     </div>
 </div>
+
+@else
+<p class="text-center fs-4">No post found.</p>
+
+@endif
 @endsection
